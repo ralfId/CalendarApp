@@ -7,6 +7,7 @@ import { messages_es } from '../../helpers/calendar-settings-es';
 import 'moment/locale/es';
 import { CalendarEvent } from './CalendarEvent';
 import { useState } from 'react';
+import { CalendarModal } from './CalendarModal';
 
 const localizer = momentLocalizer(moment)
 
@@ -70,6 +71,7 @@ export const CalendarScreen = () => {
                 onView={onViewChage}
                 view={lastView}
             />
+            <CalendarModal/>
         </div>
     )
 }

@@ -1,13 +1,13 @@
-import React from 'react'
-import { NavBar } from '../ui/NavBar'
+import React, { useState } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { messages_es } from '../../helpers/calendar-settings-es';
 import 'moment/locale/es';
+
 import { CalendarEvent } from './CalendarEvent';
-import { useState } from 'react';
 import { CalendarModal } from './CalendarModal';
+import { messages_es } from '../../helpers/calendar-settings-es';
+import { NavBar } from '../ui/NavBar'
 
 const localizer = momentLocalizer(moment)
 

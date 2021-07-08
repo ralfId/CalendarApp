@@ -19,6 +19,11 @@ const initialState =
     activeEvent: null,
 }
 
+// const initialState = {
+//     events: [],
+//     activeEvent: null
+// };
+
 export const calendarReducer = (state = initialState, action) => {
 
     switch (action.type) {

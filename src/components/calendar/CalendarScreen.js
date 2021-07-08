@@ -14,7 +14,7 @@ import { eventCleanActive, eventSetActive } from '../../actions/events';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
-const localizer = momentLocalizer(moment)
+const localizer = momentLocalizer(moment);
 
 // const myEventsList = [{
 //     title: 'Cumpleaños de Eduardo',
@@ -34,7 +34,7 @@ export const CalendarScreen = () => {
     const dispatch = useDispatch();
     const { events, activeEvent } = useSelector(state => state.calendar);
 
-    const [lastView, setLastView] = useState(localStorage.getItem('lastView'))
+    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month')
 
     const onViewChage = (e) => {
         setLastView(e)

@@ -46,7 +46,7 @@ export const startChecking = () => {
 
             localStorage.setItem('token', body.token);
             localStorage.setItem('token-init-Date', new Date().getTime());
-            dispatch(login({ token: body.token, uid: body.uid }))
+            dispatch(login({ token: body.token, uid: body.uid, name: body.name }))
 
         } else {
             dispatch(checkingFinish());
@@ -60,3 +60,12 @@ const login = (user) => ({
     payload: user
 })
 
+export const startLogout = () => {
+
+    return async (dispatch) => {
+        localStorage.clear();
+        dispatch(logout());
+    }
+}
+
+const logout = () => ({ type: types.authLogout })

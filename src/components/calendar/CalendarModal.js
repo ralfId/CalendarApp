@@ -6,7 +6,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew, eventCleanActive, eventStartAddNew, eventUpdated } from '../../actions/events';
+import { eventCleanActive, eventStartAddNew, eventUpdated } from '../../actions/events';
 
 const customStyles = {
     content: {

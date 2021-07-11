@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { fetchWithToken } from "../helpers/customFetch";
 import { prepareEvents } from "../helpers/prepareEvents";
 import { types } from "../types/types";
@@ -53,16 +54,85 @@ export const eventAddNew = (event) => ({
     payload: event
 });
 
-export const eventSetActive = (event) => ({
-    type: types.eventSetActive,
-    payload: event
-});
 
-export const eventCleanActive = () => ({ type: types.eventCleanActive })
+export const eventStartUpdate = (event) => {
+    return async (dispatch) => {
 
-export const eventUpdated = (event) => ({
+        try {
+            const resp = await fetchWithToken(`events/${event.id}`, event, 'PUT');
+            const body = await resp.json();
+
+            if (body.ok) {
+                dispatch(eventUpdated(event));
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your event has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: body.msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+const eventUpdated = (event) => ({
     type: types.eventUpdated,
     payload: event
 });
 
-export const eventDeleted = () => ({ type: types.eventDeleted })
+
+export const eventStartDelete = () => {
+    return async (dispatch, getState) => {
+
+        try {
+            const { id } = getState().calendar.activeEvent;
+            const resp = await fetchWithToken(`events/${id}`, {}, 'DELETE');
+            const body = await resp.json();
+
+            if (body.ok) {
+                dispatch(eventDeleted());
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your event has been deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: body.msg,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+ const eventDeleted = () => ({ type: types.eventDeleted })
+
+export const eventSetActive = (event) => ({
+    type: types.eventSetActive,
+    payload: event
+});
+export const eventCleanActive = () => ({ type: types.eventCleanActive })

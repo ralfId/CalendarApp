@@ -136,3 +136,5 @@ export const eventSetActive = (event) => ({
     payload: event
 });
 export const eventCleanActive = () => ({ type: types.eventCleanActive })
+
+export const clearCalendarState = () => ({ type: types.eventLogout})

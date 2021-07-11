@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -10,37 +10,30 @@ import { CalendarModal } from './CalendarModal';
 import { messages_es } from '../../helpers/calendar-settings-es';
 import { NavBar } from '../ui/NavBar'
 import { uiOpenModal } from '../../actions/ui';
-import { eventCleanActive, eventSetActive } from '../../actions/events';
+import { eventCleanActive, eventSetActive, eventStartLoad } from '../../actions/events';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
 const localizer = momentLocalizer(moment);
 
-// const myEventsList = [{
-//     title: 'Cumpleaños de Eduardo',
-//     start: moment().toDate(),
-//     end: moment().add(2, 'hours').toDate(),
-//     bgcolor: '#fafafa',
-//     notes:'comprar el pastel',
-//     user:{
-//         uid: '12abc',
-//         name: 'Rafael'
-//     }
-// }]
 
 
 export const CalendarScreen = () => {
 
     const dispatch = useDispatch();
     const { events, activeEvent } = useSelector(state => state.calendar);
-
+    const { uid } = useSelector(state => state.auth);
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month')
+
+    useEffect(() => {
+    
+        dispatch(eventStartLoad())
+    }, [dispatch])
 
     const onViewChage = (e) => {
         setLastView(e)
         localStorage.setItem('lastView', e);
     }
-
 
     const onSelectedEvent = (e) => {
         dispatch(eventSetActive(e))
@@ -54,7 +47,7 @@ export const CalendarScreen = () => {
     const eventStyleGetter = (event, start, end, isSelected) => {
 
         const style = {
-            backgroundColor: '#aa00ff',
+            backgroundColor: (uid === event.user._id) ? '#aa00ff' : '#465660',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block',
@@ -93,7 +86,6 @@ export const CalendarScreen = () => {
             <AddNewFab />
             {
                 (activeEvent) && <DeleteEventFab />
-
             }
             <CalendarModal />
 

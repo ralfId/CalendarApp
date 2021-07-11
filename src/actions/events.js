@@ -1,5 +1,29 @@
 import { fetchWithToken } from "../helpers/customFetch";
+import { prepareEvents } from "../helpers/prepareEvents";
 import { types } from "../types/types";
+
+export const eventStartLoad = () => {
+    return async (dispatch) => {
+        try {
+
+            const resp = await fetchWithToken('events');
+            const body = await resp.json();
+
+            const events = prepareEvents(body.events);
+            dispatch(eventsLoad(events))
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+const eventsLoad = (events) => ({
+    type: types.eventLoadEvents,
+    payload: events
+})
+
+
 
 export const eventStartAddNew = (event) => {
     return async (dispatch, getState) => {

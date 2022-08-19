@@ -4,7 +4,7 @@ Application created with React JS. It is a calendar application to schedule even
 ### Start a local web server 
 1. Clone the repository
 2. Open the project in your favorite editor
-3. In your favorite console application navigate to the folder where you cloned the project or in the integrated terminal if you opened the project in vs code:
+3. In your favorite console application navigate to the folder where you clone the project or in the integrated terminal if you opened the project in vs code:
     - [x] npm i
     - [x] npm start
 
